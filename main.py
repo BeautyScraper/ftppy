@@ -6,6 +6,7 @@ from tqdm import tqdm
 from ftplib import error_perm
 
 def mkdir(ftp, rpath):
+    ftp.cwd('/')
     try:
         mkdir_helper(ftp, rpath)
     except Exception as e:
@@ -41,7 +42,8 @@ def mkdir_helper(ftp,rpath):
         temp_rpath = '/'.join(rpath.split('/')[1:])
         # breakpoint()
         if not current_dir.lower() in map(str.lower,ftp.nlst()):
-            ftp.mkd('"%s"' % current_dir)
+            # ftp.mkd('"%s"' % current_dir)
+            ftp.mkd(current_dir)
         ftp.cwd(current_dir)
         mkdir_helper(ftp,temp_rpath)
 
