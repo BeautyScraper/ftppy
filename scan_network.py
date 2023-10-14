@@ -3,18 +3,23 @@ import netifaces
 
 def get_subnet_address():
     interfaces = netifaces.interfaces()
-    for interface in interfaces:
-        addresses = netifaces.ifaddresses(interface)
+    addresses_l = [netifaces.ifaddresses(x) for x in interfaces if netifaces.AF_INET in netifaces.ifaddresses(x) ]
+    for addresses in addresses_l:
         if netifaces.AF_INET in addresses:
             for link in addresses[netifaces.AF_INET]:
+                # print(addresses)
                 if 'addr' in link:
                     ip_address = link['addr']
+                    if not '192' in ip_address:
+                        continue
+                    # breakpoint()
                     subnet_address = ip_address.rsplit('.', 1)[0] + '.'
-                    return subnet_address
+                    sfh = int(ip_address.split('.')[-1])
+                    return subnet_address, sfh #start_from_here
 
 def scan_ftp_servers():
-    subnet_address = get_subnet_address()
-    for i in range(1, 256):  # Scan all possible IP addresses in the subnet
+    subnet_address, sfh = get_subnet_address()
+    for i in range(sfh - 5, 256):  # Scan all possible IP addresses in the subnet
         ip_address = subnet_address + str(i)
         ftp_port = 2121  # Default FTP port is 21
         print(f'testing {ip_address}:{str(ftp_port)} ')

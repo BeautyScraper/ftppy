@@ -49,7 +49,7 @@ def mkdir_helper(ftp,rpath):
 
 
 
-def download_folder(ftp, remote_folder, local_folder, dad=False):
+def download_folder(ftp, remote_folder, local_folder, dad=False, extensions=None):
     ftp.cwd(remote_folder)
 
     # Create the local folder if it doesn't exist
@@ -57,6 +57,9 @@ def download_folder(ftp, remote_folder, local_folder, dad=False):
 
     # List files and directories in the remote folder
     file_list = ftp.nlst()
+    if not extensions is None:
+        file_list = [x for x in file_list if Path(x).suffix in extensions]
+        # breakpoint()
 
     for item in file_list:
         item_path = Path(remote_folder) / item
@@ -75,6 +78,7 @@ def download_folder(ftp, remote_folder, local_folder, dad=False):
             # If item is a directory, create the corresponding local directory and recursively download its contents
             local_item_path.mkdir(parents=True, exist_ok=True)
             download_folder(ftp, str(item_path), str(local_item_path))
+    ftp.cwd('/')
 
 
 def connect_ftp_server(host, port, username, password):
@@ -107,7 +111,7 @@ def upload_folder(ftp, local_folder, remote_folder):
     # remote_folder = remote_folder.replace(' ','_') 
     mkdir(ftp,remote_folder)
     local_folder_path = Path(local_folder)
-    breakpoint()
+    # breakpoint()
     ftp.cwd(remote_folder)
     file_list = [x for x in local_folder_path.glob('**/*')]
     for file_path in tqdm(file_list):
