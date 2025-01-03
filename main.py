@@ -72,8 +72,8 @@ def download_folder(ftp, remote_folder, local_folder, dad=False, extensions=None
                 ftp.retrbinary('RETR ' + str(item), file.write)
                 print(f"File '{item}' downloaded and saved to '{local_item_path}'")
                 if dad:
-                    ftp.delete(str(item))
                     print(f"File '{item}' deleted from the FTP server")
+                    ftp.delete(str(item))
         else:
             # If item is a directory, create the corresponding local directory and recursively download its contents
             local_item_path.mkdir(parents=True, exist_ok=True)
