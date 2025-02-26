@@ -17,6 +17,7 @@ if __name__=='__main__':
     download_folder(ftp,'Pictures/0f', r'C:\Heaven\Haven\brothel\BestFromMobile', True, ['.jpg','.jpeg', '.png'])
     download_folder(ftp,'Download/Meet', r'D:\mobile\Cam_video', True, ['.jpg','.jpeg', '.png'])
     download_folder(ftp,'Download', r'C:\Heaven\Haven\brothel\BestFromMobile', True, ['.jpg','.jpeg', '.png'])
+    download_folder(ftp,'Pictures/Reddit', r'C:\Heaven\Haven\brothel\BestFromMobile', True, ['.jpg','.jpeg', '.png', '.mp4', '.mkv','.gif'])
     download_folder(ftp,'Pictures/BestFap', r'D:\paradise\stuff\new\clips', True, ['.mp4'])
     download_folder(ftp,'Download', r"D:\paradise\stuff\new\to_be_clipped", True, ['.mp4'])
     # download_folder(ftp,'Pictures/Fs Source Personal', r'D:\paradise\stuff\simswappg\srcs\Fs_source', True, ['.mp4','.jpg','.jpeg', '.png'])
